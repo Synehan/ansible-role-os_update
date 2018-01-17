@@ -1,0 +1,12 @@
+---
+- name: Reboot OS
+  shell: sleep 2 && /sbin/shutdown -r now "Ansible system pacakge upgraded"
+  async: 1
+  poll: 0
+
+- name: Wainting for ssh to stop
+  pause:
+    seconds: 30
+
+- name: Wait for connection to check the server rebooted
+  wait_for_connection:

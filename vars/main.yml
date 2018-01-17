@@ -1,0 +1,3 @@
+---
+# vars file for synehan.os_update
+need_reboot: False

@@ -1,0 +1,20 @@
+---
+- name: Upgrade EL like distributions
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install yum utils to check if restart needed
+  yum:
+    name: yum-utils
+    state: present
+
+- name: Check the need of Reboot
+  command: needs-restarting -r
+  register: _need_restart_
+  failed_when: false
+  changed_when: _need_restart_.rc == 1
+
+- set_fact:
+    need_reboot: true
+  when: _need_restart_.rc == 1

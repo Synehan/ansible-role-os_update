@@ -1,0 +1,5 @@
+---
+# tasks file for synehan.os_update
+- include_tasks: update-{{ ansible_os_family | lower }}.yml
+- include_tasks: reboot.yml
+  when: need_reboot

@@ -1,0 +1,14 @@
+---
+- name: Upgrade Debian like distributions
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Check the need of Reboot
+  stat:
+    path: /var/run/reboot-required
+  register: _need_restart_
+
+- set_fact:
+    need_reboot: true
+  when: _need_restart_.stat.exists
