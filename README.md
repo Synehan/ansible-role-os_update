@@ -11,7 +11,11 @@ Ansible 2.4 required
 Role Variables
 --------------
 
-None.
+You can configure the timeout for the update by configuring this variable :
+
+```yaml
+os_update_update_timeout: 1200
+```
 
 Dependencies
 ------------
@@ -25,7 +29,7 @@ Here an example of a Playbook:
 
     - hosts: servers
       become: true
-      
+
       roles:
          - role: Synehan.os_update
 

@@ -1,2 +1,3 @@
 ---
 # defaults file for synehan.os_update
+os_update_update_timeout: 1200

@@ -3,6 +3,7 @@
   yum:
     name: '*'
     state: latest
+  async: " {{ os_update_update_timeout }}"
 
 - name: Install yum utils to check if restart needed
   yum:

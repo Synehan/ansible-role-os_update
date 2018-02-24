@@ -3,6 +3,7 @@
   apt:
     update_cache: yes
     upgrade: dist
+  async: " {{ os_update_update_timeout }}"
 
 - name: Check the need of Reboot
   stat:
