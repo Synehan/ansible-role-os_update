@@ -1,6 +1,6 @@
 ---
 - name: Reboot OS
-  shell: sleep 2 && /sbin/shutdown -r now "Ansible system pacakge upgraded"
+  shell: sleep 2 && /sbin/shutdown -r now "Ansible system packages upgraded"
   async: 1
   poll: 0
 
