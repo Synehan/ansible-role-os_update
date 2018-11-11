@@ -1,20 +1,34 @@
 ---
-- name: Upgrade EL like distributions
-  yum:
-    name: '*'
-    state: latest
-  async: " {{ os_update_update_timeout }}"
-
-- name: Install yum utils to check if restart needed
-  yum:
-    name: yum-utils
-    state: present
+- name: Upgrade EL like distributions 
+  block:
+    - name: Upgrade Distribution (dnf)
+      dnf:
+        name: "*"
+        state: latest
+      async: " {{ os_update_update_timeout }}"
+    - set_fact:
+        restart_command: "dnf needs-restarting"
+  rescue:
+    - debug:
+        msg: "dnf not available, using yum instead"
+    - name: Upgrade Distribution (yum)
+      yum:
+        name: '*'
+        state: latest
+      async: " {{ os_update_update_timeout }}"
+    - name: Install yum-utils
+      yum:
+        name: yum-utils
+        state: present
+    - set_fact:
+        restart_command: "needs-restarting -r"
 
 - name: Check the need of Reboot
-  command: needs-restarting -r
+  command: "{{ restart_command }}"
   register: _need_restart_
   failed_when: false
   changed_when: _need_restart_.rc == 1
+  warn: false
 
 - set_fact:
     need_reboot: true
